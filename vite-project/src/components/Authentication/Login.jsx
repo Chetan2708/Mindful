@@ -43,7 +43,7 @@ const Login = () => {
             </Button>
             <Button colorScheme='red' w='100%' color='white' background='#b04747'
                 onClick={() => {
-                    setemail("guest@example.com")
+                    setemail("guest@ex.com")
                     setpw("1234")
                 }}>
                 Guest Login
