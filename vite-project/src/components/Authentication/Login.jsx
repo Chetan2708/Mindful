@@ -7,6 +7,8 @@ const Login = () => {
     const [email, setemail] = useState()
     const [password, setpw] = useState()
     const [loading, setLoading] = useState(false)
+    const handleClick =()=>{
+    }
     return (
         <VStack spacing="5px">
             <FormControl id="Email" isRequired>
@@ -42,7 +44,7 @@ const Login = () => {
                 Login
             </Button>
             <Button colorScheme='red' w='100%' color='white' background='#b04747'
-                onClick={() => {
+                onClick={(handleClick) => {
                     setemail("guest@example.com")
                     setpw("1234")
                 }}>
