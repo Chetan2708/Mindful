@@ -1,12 +1,72 @@
 import React from 'react'
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from "@chakra-ui/react"
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { setUserData } from '../../features/inputSlice'; 
+import { useDispatch} from 'react-redux';
 const Login = () => {
 
     const [show1, setshow1] = useState(false)
     const [email, setemail] = useState()
     const [password, setpw] = useState()
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+    const toast = useToast();
+    const dispatch = useDispatch();
+    const handleClick = async ()=>{
+        setLoading(true);
+        if (!email || !password) {
+            toast({
+              title: "Please Fill all the Feilds",
+              status: "warning",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
+            setLoading(false);
+            return;
+          }
+      
+          try {
+            const config = {
+              headers: {
+                "Content-type": "application/json",
+              },
+            };
+      
+            let { data } = await axios.post(
+              "/api/user/login",
+              { email, password },
+              config
+            );
+      
+            toast({
+              title: "Login Successful",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
+            console.log(data)
+            dispatch(setUserData(data))
+            // localStorage.setItem("userInfo", JSON.stringify(data));
+            setLoading(false);
+            navigate("/dashboard");
+        }
+        catch (error){
+            toast({
+                title: "Error Occured!",
+                description: error.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            })
+            setLoading(false);
+        }
+    }
+          
     return (
         <VStack spacing="5px">
             <FormControl id="Email" isRequired>
@@ -37,7 +97,7 @@ const Login = () => {
                 </InputGroup>
             </FormControl>
             <Button colorScheme="whatsapp" w='100%' color='white' background='green.400'
-               
+               onClick={handleClick}
                 isLoading={loading} >
                 Login
             </Button>

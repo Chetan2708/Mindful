@@ -21,7 +21,7 @@ const userModel = mongoose.Schema(
       required: true,
     },
     howHeard: {
-      type: String,
+      type: Array,
 
       required: true,
     },
