@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
         userData : [],
-        allUsers:[]
+        allUsers:[],
+        searchResult:'',
 
   };
   const inputSlice = createSlice({
@@ -15,9 +16,12 @@ const initialState = {
       setAllUsers: (state, action) => {
         state.allUsers= action.payload;
       },
+      setSearch: (state, action) => {
+        state.searchResult= action.payload;
+      },
       
     },
   });
   
-  export const { setUserData , setAllUsers } = inputSlice.actions;
+  export const { setUserData , setAllUsers , setSearch} = inputSlice.actions;
   export default inputSlice.reducer;

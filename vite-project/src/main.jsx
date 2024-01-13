@@ -12,7 +12,7 @@ const customTheme = extendTheme({
     global: {
       body: {
         bg: 'black',
-        color: 'white',
+        // color: 'white',
       },
     },
   },

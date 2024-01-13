@@ -34,13 +34,13 @@ const View = () => {
     navigate('/dashboard');
   };
   return (
-    <Box p={4} borderWidth="1px" borderRadius="lg">
+    <Box p={4} borderWidth="1px" borderRadius="lg" style={{color:'white'}}>
       <VStack spacing={4}>
         <Text fontSize="2xl" fontWeight="bold">
           User Details
         </Text>
         <HStack>
-          <Badge colorScheme="green">ID: {id}</Badge>
+          <Badge colorScheme="green" fontSize="xl">ID: {id}</Badge>
         </HStack>
         <Text>Name: {updateData.name}</Text>
         <Text>Email: {updateData.email}</Text>
