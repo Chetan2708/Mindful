@@ -91,7 +91,7 @@ const Add = () => {
     }
   };
   return (
-    <VStack spacing="5px">
+    <VStack spacing="5px" style={{color:"white"}}>
 
       <FormControl id="name" isRequired>
         <FormLabel> Name</FormLabel>

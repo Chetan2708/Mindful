@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../features/inputSlice';
+import ProfileModal from './misc/ProfileModal';
+
 const Header = () => {
   const navigate =useNavigate()
   const dispatch = useDispatch();
@@ -33,22 +35,14 @@ const Header = () => {
         borderWidth="5px"
       >
         <Tooltip hasArrow label="Search for Users" placement="bottom-end">
-          {/* <Button variant={"ghost"} >
-            
-            <i className="fas fa-search"></i>
-            <Text display={{ base: "none", md: "flex" }} px="4">
-              {" "}
-              Search
-            </Text>
-          </Button> */}
+    
            <Input
       type="text"
-      
-      placeholder="Search"
+      placeholder="Search (Name , Email , Phone )"
       onChange={handleSearchChange}
       value={search}
       px="4"
-      width={'10%'}
+      width={'30%'}
     />
     
         </Tooltip>
@@ -69,7 +63,9 @@ const Header = () => {
             </MenuButton>
 
             <MenuList>
+              <ProfileModal>
                 <MenuItem>My Profile</MenuItem>
+              </ProfileModal>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </MenuList>
           </Menu>

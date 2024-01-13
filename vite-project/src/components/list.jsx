@@ -12,6 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
 const List = ({ handleEdit, handleDelete, handleView }) => {
   const allData = useSelector((state) => state.allUsers)
@@ -25,9 +26,8 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
               <Th width='5%'>Id</Th>
               <Th width='10%'>Name</Th>
               <Th width='10%'>Email</Th>
-              <Th width='10%'>City</Th>
               <Th width='10%'>Phone number</Th>
-              <Th width='5%' colSpan={3}>
+              <Th width='5%' colSpan={3} >
                 Actions
               </Th>
             </Tr>
@@ -48,28 +48,28 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
                     <Td>{i + 1}</Td>
                     <Td>{emp.name}</Td>
                     <Td>{emp.email}</Td>
-                    <Td>{emp.city}</Td>
+                    
                     <Td>{emp.phone}</Td>
                     <Td>
                       <Button
-                        colorScheme='gray'
+                        colorScheme='green'
                         onClick={() => handleEdit(emp._id)}
                       >
-                        Edit
+                        <EditIcon/>
                       </Button>
                     </Td>
                     <Td>
                       <Button
-                        colorScheme='gray'
+                        colorScheme='red'
                         margin={10}
                         onClick={() => handleDelete(emp._id)}
                       >
-                        Delete
+                       <DeleteIcon />
                       </Button>
                     </Td>
                     <Td>
                       <Button
-                        colorScheme='gray'
+                        colorScheme='blue'
                         margin={10}
                         onClick={() => handleView(emp._id)}
                       >
@@ -80,7 +80,7 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
                 ))
             ) : (
               <Tr>
-                <Td colSpan={7}>No Employees</Td>
+                <Td colSpan={7}>No Data Found</Td>
               </Tr>
             )}
           </Tbody>
