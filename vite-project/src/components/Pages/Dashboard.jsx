@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAllUsers } from '../../features/inputSlice';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { setUserData } from '../../features/inputSlice';
 
 const Dashboard = () => {
   const [temp, setTemp] = useState(false);
@@ -16,7 +17,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    dispatch(setUserData(userInfo));
+    if (!userInfo){
+      navigate("/")
+    }
     const fetchData = async () => {
+  
       try {
         // Check if the browser is online
         if (!navigator.onLine) {
@@ -41,20 +48,13 @@ const Dashboard = () => {
 
         dispatch(setAllUsers(response.data));
       } catch (error) {
-        toast({
-          title: 'Error Occurred!',
-          description: 'Failed to Load',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-          position: 'bottom-left',
-        });
+          console.log(error)
       }
     };
 
     fetchData(); // Call the async function
 
-  }, [temp, dispatch, user.token, toast]);
+  }, [temp, dispatch, user.token , navigate]);
 
   const handleEdit = (id) => {
     navigate(`/dashboard/edit/${id}`);

@@ -87,12 +87,12 @@ const Edit = () => {
 
         if (response.status === 200) {
           // Handle successful update (e.g., show success message)
-          toast({
-            title: 'Update Successful',
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-            position: 'bottom-left',
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
           });
           navigate('/dashboard');
         } else {
