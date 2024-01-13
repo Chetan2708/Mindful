@@ -16,6 +16,19 @@ const Login = () => {
     const dispatch = useDispatch();
     const handleClick = async ()=>{
         setLoading(true);
+        if (!navigator.onLine) {
+            toast({
+              title: "No Internet Connection",
+              description: "Please check your internet connection and try again.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
+        
+            setLoading(false);
+            return;
+          }
         if (!email || !password) {
             toast({
               title: "Please Fill all the Feilds",
@@ -50,7 +63,7 @@ const Login = () => {
             });
             console.log(data)
             dispatch(setUserData(data))
-            // localStorage.setItem("userInfo", JSON.stringify(data));
+            localStorage.setItem("userInfo", JSON.stringify(data));
             setLoading(false);
             navigate("/dashboard");
         }

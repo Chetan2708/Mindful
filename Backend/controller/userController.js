@@ -87,6 +87,53 @@ const allData = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
 
-module.exports = { registerUser, authUser, allData };
+  try {
+    // Find the user by ID and delete it
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (deletedUser) {
+      res.status(200).json({ message: 'User deleted successfully', deletedUser });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+const editUser = asyncHandler(async (req, res) => {
+  const userId = req.params.id; 
+  const updatedUserData = req.body; 
+  console.log(userId)
+  try {
+    // Check if the user with the given ID exists
+    const existingUser = await User.findById(userId);
+
+    if (!existingUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    
+    existingUser.name = updatedUserData.name || existingUser.name;
+    existingUser.email = updatedUserData.email || existingUser.email;
+    existingUser.phone = updatedUserData.phone || existingUser.phone;
+    existingUser.gender = updatedUserData.gender || existingUser.gender;
+    existingUser.howHeard = updatedUserData.howHeard || existingUser.howHeard;
+    existingUser.city = updatedUserData.city || existingUser.city;
+    existingUser.state = updatedUserData.state || existingUser.state;
+
+    
+    await existingUser.save();
+
+    // Respond with success message
+    res.status(200).json({ message: 'User data updated successfully', user: existingUser });
+  } catch (error) {
+    console.error('Error during user update:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+})
+module.exports = { registerUser, authUser, allData , deleteUser ,editUser};
 

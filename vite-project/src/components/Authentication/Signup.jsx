@@ -11,7 +11,9 @@ import {
   RadioGroup,
   Select,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
+import axios from 'axios';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -21,21 +23,92 @@ const Signup = () => {
   const [howHeard, setHowHeard] = useState([]);
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [load, setLoad] = useState(false); // assuming load is a boolean
-  // const toast = useToast(); // assuming you want to use Chakra UI's toast for notifications
+  const [load, setLoad] = useState(false); 
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+   const toast = useToast(); // assuming you want to use Chakra UI's toast for notifications
 
-  const submitHandler = () => {
-    // Implement your form submission logic here
-    // You can access the form data using the state variables (name, email, phone, etc.)
-    // You may also want to add validation logic before submitting the form
+  const submitHandler = async () => {
+    setLoad(true);
+  
+    try {
+      // Check if the browser is online
+      if (!navigator.onLine) {
+        // Display a message or trigger a Snackbar for no internet connection
+        toast({
+          title: "No Internet Connection",
+          description: "Please check your Wi-Fi or Mobile Data",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoad(false);
+        return;
+      }
+      if (password !== confirmPassword) {
+        toast({
+          title: "Password Mismatch",
+          description: "Password and Confirm Password do not match.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoad(false);
+        return;
+      }
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+  
+      let { data } = await axios.post(
+        "/api/user/",
+        {
+          name,
+          email,
+          password,
+          phone,
+          gender,
+          howHeard,
+          city,
+          state,
+        },
+        config
+      );
+  
+      toast({
+        title: "Registration Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
 
-    // Example of showing a success toast:
-    // toast({
-    //   title: 'Form submitted successfully!',
-    //   status: 'success',
-    //   duration: 3000,
-    //   isClosable: true,
-    // });
+      setLoad(false);
+        setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setPhone('');
+    setGender('');
+    setHowHeard([]);
+    setCity('');
+    setState('');
+     
+    } catch (error) {
+      toast({
+        title: "Error Occurred!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoad(false);
+    }
   };
 
   return (
@@ -58,7 +131,22 @@ const Signup = () => {
         onChange={(e) => setEmail(e.target.value.replace(/[^a-zA-Z0-9@._-]/g, ''))}
       ></Input>
     </FormControl>
-  
+    <FormControl id="password" isRequired>
+        <FormLabel>Password</FormLabel>
+        <Input
+          type="password"
+          placeholder="Enter Your Password"
+          onChange={(e) => setPassword(e.target.value)}
+        ></Input>
+      </FormControl>
+      <FormControl id="confirm-password" isRequired>
+        <FormLabel>Confirm Password</FormLabel>
+        <Input
+          type="password"
+          placeholder="Confirm Your Password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </FormControl>
     <FormControl id="phone" isRequired>
       <FormLabel> Phone</FormLabel>
       <Input
@@ -110,7 +198,7 @@ const Signup = () => {
         _placeholder={{ opacity: 0.5, color: 'black' }}
         onChange={(e) => setState(e.target.value)}
       ></Input>
-      {/* You may implement auto-suggested functionality here based on the provided static values */}
+     
     </FormControl>
   
     <Button

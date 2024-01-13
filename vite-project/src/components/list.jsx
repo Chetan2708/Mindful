@@ -13,7 +13,7 @@ import {
   } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 
-const List = ({ handleEdit ,handleDelete }) => {
+const List = ({ handleEdit ,handleDelete ,handleView }) => {
     const allData = useSelector((state)=>state.allUsers) 
     return (
         <div>
@@ -26,7 +26,7 @@ const List = ({ handleEdit ,handleDelete }) => {
                   <Th width='10%'>Email</Th>
                   <Th width='10%'>City</Th>
                   <Th width='10%'>Phone number</Th>
-                  <Th width='15%' colSpan={2}>
+                  <Th width='5%' colSpan={3}>
                     Actions
                   </Th>
                 </Tr>
@@ -46,7 +46,7 @@ const List = ({ handleEdit ,handleDelete }) => {
                       <Td>
                         <Button
                           colorScheme='gray'
-                          onClick={() => handleEdit(emp.id)}
+                          onClick={() => handleEdit(emp._id)}
                         >
                           Edit
                         </Button>
@@ -55,9 +55,18 @@ const List = ({ handleEdit ,handleDelete }) => {
                         <Button
                           colorScheme='gray'
                           margin={10}
-                          onClick={() => handleDelete(emp.id)}
+                          onClick={() => handleDelete(emp._id)}
                         >
                           Delete
+                        </Button>
+                      </Td>
+                      <Td>
+                        <Button
+                          colorScheme='gray'
+                          margin={10}
+                          onClick={() => handleView(emp._id)}
+                        >
+                          View
                         </Button>
                       </Td>
                     </Tr>

@@ -1,18 +1,26 @@
 import React from 'react'
-import { Heading } from '@chakra-ui/react'
+import { HStack, Heading } from '@chakra-ui/react'
 import { Button, ButtonGroup } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
-
-const Header = ({setisAdding}) => {
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+const Header = ({ setisAdding }) => {
+  const navigate =useNavigate()
+  const handleLogout =()=>{
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  }
   return (
     <header>
-        <Heading>User Management System</Heading>
-<Link to ="/add">
+      <HStack display={'flex'} justifyContent={'space-between'}>
 
-        <Button colorScheme='teal' variant='outline'  margin={'20px'} width={'30%'}>
-    Add User 
-  </Button>
-</Link>
+      <Heading>Dashboard</Heading>
+      <Button colorScheme='teal' variant='outline'  onClick={handleLogout}>Logout</Button>
+      </HStack>
+      <Link to="/dashboard/add">
+
+        <Button colorScheme='teal' variant='outline' margin={'20px'} width={'30%'}>
+          Add User
+        </Button>
+      </Link>
     </header>
   )
 }

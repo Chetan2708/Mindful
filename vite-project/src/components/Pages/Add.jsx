@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-const Add = ({setisAdding}) => {
+const Add = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,13 +30,29 @@ const Add = ({setisAdding}) => {
 
   const HandleClick = async () => {
     setLoad(true);
-    
+  
     try {
+      // Check if the browser is online
+      if (!navigator.onLine) {
+        // Display a message or trigger a Snackbar for no internet connection
+        toast({
+          title: "No Internet Connection",
+          description: "Please check your Wi-Fi or Mobile Data",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoad(false);
+        return;
+      }
+  
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
+  
       let { data } = await axios.post(
         "/api/user/addUser",
         {
@@ -44,15 +60,14 @@ const Add = ({setisAdding}) => {
           email,
           password,
           phone,
-          gender, 
-          howHeard, 
-          city, 
+          gender,
+          howHeard,
+          city,
           state,
         },
         config
       );
-
-
+  
       toast({
         title: "Registration Successful",
         status: "success",
@@ -61,11 +76,11 @@ const Add = ({setisAdding}) => {
         position: "bottom",
       });
       setLoad(false);
-      console.log(data)
-      setisAdding(false)
+      console.log(data);
+      navigate("/dashboard");
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "Error Occurred!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -74,7 +89,7 @@ const Add = ({setisAdding}) => {
       });
       setLoad(false);
     }
-  }
+  };
   return (
     <VStack spacing="5px">
 
@@ -140,8 +155,9 @@ const Add = ({setisAdding}) => {
         <Select
           placeholder="Select City"
           onChange={(e) => setCity(e.target.value)}
+          color="black"  
         >
-          <option value="mumbai">Mumbai</option>
+          <option value="mumbai" >Mumbai</option>
           <option value="pune">Pune</option>
           <option value="ahmedabad">Ahmedabad</option>
         </Select>
@@ -154,7 +170,7 @@ const Add = ({setisAdding}) => {
           _placeholder={{ opacity: 0.5, color: 'black' }}
           onChange={(e) => setState(e.target.value)}
         ></Input>
-        {/* You may implement auto-suggested functionality here based on the provided static values */}
+      
       </FormControl>
 
       <Button
@@ -171,9 +187,9 @@ const Add = ({setisAdding}) => {
       <Button
         width="50%"
         style={{ marginTop: 15 }}
-        onClick={()=>setisAdding(true)}
+        onClick={()=>{navigate("/dashboard")}}
         isLoading={load}
-        background="green.400"
+        background="red"
         color='white'>
           Cancel
       </Button >
