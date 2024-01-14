@@ -14,6 +14,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { baseUrl } from '../../App';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -76,7 +77,7 @@ const Signup = () => {
       };
   
       let { data } = await axios.post(
-        "/api/user/",
+        `${baseUrl}/api/user/`,
         {
           name,
           email,

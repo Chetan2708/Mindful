@@ -8,14 +8,21 @@ const connectDB = require("./config/db")
 
 const userRoutes = require("./routes/userRoutes")
 
-
+const cors = require('cors')
 
 dotenv.config();
 connectDB();
 
 
 app.use(express.json())
-
+const corsOptions = {
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, 
+    optionsSuccessStatus: 204, 
+  };
+  
+  app.use(cors(corsOptions));
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

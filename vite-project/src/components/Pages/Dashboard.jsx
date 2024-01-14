@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header';
-import List from '../List';
+
 import { Box, Center, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { setUserData } from '../../features/inputSlice';
 import { Spinner } from '@chakra-ui/react'
+import List from '../list';
+import { baseUrl } from '../../App';
 const Dashboard = () => {
   const [temp, setTemp] = useState(false); 
   const [loading, setLoading] = useState(false);
@@ -46,7 +48,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${user.token}`,
           },
         };
-        const response = await axios.get(`/api/user?search`, config);
+        const response = await axios.get(`${baseUrl}/api/user?search`, config);
 
         dispatch(setAllUsers(response.data));
         setLoading(false)
@@ -97,7 +99,7 @@ const Dashboard = () => {
           return;
         }
 
-        const response = await fetch(`/api/user/${id}`, {
+        const response = await fetch(`${baseUrl}/api/user/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

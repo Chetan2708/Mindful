@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Avatar, Box, Input, Menu, MenuButton, MenuItem, MenuList, Radio, RadioGroup, Select, Stack, Text, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AddIcon, ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { AddIcon, ChevronDownIcon, SettingsIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch, setTemp} from '../features/inputSlice';
 import { v4 as uuid } from "uuid";
@@ -15,7 +15,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
+  
 } from '@chakra-ui/react'
 const Header = () => {
   const navigate =useNavigate()
@@ -58,61 +58,61 @@ const Header = () => {
   }
   return (
 <>
-    <header>
-         <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        bg="white"
-        w="100%"
-        p="5px 10px 5px 10px"
-        borderWidth="5px"
-      >
-        <Tooltip hasArrow label="Search for Users" placement="bottom-end">
-    
-           <Input
-      type="text"
-      placeholder="Search (Name , Email , Phone )"
-      onChange={handleSearchChange}
-      value={search}
-      px="4"
-      width={'30%'}
-    />
-    
-        </Tooltip>
+        <header>
+            <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            bg="white"
+            w="100%"
+            p="5px 10px 5px 10px"
+            borderWidth="5px"
+          >
+            <Tooltip hasArrow label="Search for Users" placement="bottom-end">
+        
+              <Input
+          type="text"
+          placeholder="Search (Name , Email , Phone )"
+          onChange={handleSearchChange}
+          value={search}
+          px="4"
+          width={'20%'}
+        />
+        
+            </Tooltip>
 
-        <Text fontSize="2xl" fontFamily="Work sans">
-          Dashboard
-        </Text>
-        <div >
-          <Button style={{marginRight:'20px'}} background={'transparent'} onClick={onOpen}>
-            <HamburgerIcon />
-          </Button>
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
-              <Avatar
-                size={"sm"}
-                cursor={"pointer"}
-                name={user.name}
-                src={user.pic}
-              />
-            </MenuButton>
+            <Text fontSize="2xl" fontFamily="Work sans" >
+              Dashboard
+            </Text>
+            <div >
+              <Button style={{marginRight:'20px'}} background={'transparent'} onClick={onOpen}>
+                <SettingsIcon />
+              </Button>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
+                  <Avatar
+                    size={"sm"}
+                    cursor={"pointer"}
+                    name={user.name}
+                    src={user.pic}
+                  />
+                </MenuButton>
 
-            <MenuList>
-              <ProfileModal>
-                <MenuItem>My Profile</MenuItem>
-              </ProfileModal>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        </div>
-      </Box>
-      <Link to="/dashboard/add">
-        <Button colorScheme='teal' variant='outline' margin={'20px'} width={'10%'} gap={'10px'}>
-         Add User <AddIcon/>
-        </Button>
-      </Link>
-    </header>
+                <MenuList>
+                  <ProfileModal>
+                    <MenuItem>My Profile</MenuItem>
+                  </ProfileModal>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </div>
+          </Box>
+          <Link to="/dashboard/add">
+            <Button colorScheme='teal' variant='outline' margin={'20px'} width={'10%'} gap={'10px'}>
+            Add User <AddIcon/>
+            </Button>
+          </Link>
+        </header>
     <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -129,6 +129,12 @@ const Header = () => {
             </RadioGroup>
           
           </DrawerBody>
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     

@@ -10,14 +10,13 @@ import {
   RadioGroup,
   HStack,
   Radio,
-  CheckboxGroup,
-  Checkbox,
   Select,
   Button,
   useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { baseUrl } from '../App';
 
 const Edit = () => {
   const allData = useSelector((state) => state.allUsers);
@@ -78,7 +77,7 @@ const Edit = () => {
       });
 
       if (confirmResult.isConfirmed) {
-        const response = await axios.put(`/api/user/edit/${id}`, updateData, {
+        const response = await axios.put(`${baseUrl}/api/user/edit/${id}`, updateData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             'Content-Type': 'application/json',

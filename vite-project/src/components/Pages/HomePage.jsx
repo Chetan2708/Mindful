@@ -20,7 +20,7 @@ const HomePage = () => {
         background="white"
       >
         <Text fontSize="3xl" fontFamily="Work sans" color="black">
-          MindfulGurukul
+          Mindful Gurukul
         </Text>
       </Box>
       <Box
