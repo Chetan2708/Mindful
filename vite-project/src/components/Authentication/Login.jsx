@@ -84,16 +84,52 @@ useEffect(() => {
       setLoading(false);
       navigate("/dashboard");
     } catch (error) {
+  if (error.response) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    if (error.response.status === 400) {
       toast({
-        title: "Error Occurred!",
-        description: error.response.data.message,
+        title: "Invalid Credentials",
+        description: "Please check your email and password.",
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+    } else {
+      toast({
+        title: "Error Occurred!",
+        description: "Something went wrong. Please try again later.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
     }
+  } else if (error.request) {
+    
+    toast({
+      title: "Network Error",
+      description: "Please check your internet connection and try again.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom",
+    });
+  } else {
+    
+    toast({
+      title: "Error Occurred!",
+      description: "Something went wrong. Please try again later.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom",
+    });
+  }
+
+  setLoading(false);
+}
   };
 
   return (
@@ -150,7 +186,7 @@ useEffect(() => {
         background='#b04747'
         onClick={() => {
           setemail("guest@example.com");
-          setpw("1234");
+          setpw("abc");
         }}
       >
         Guest Login

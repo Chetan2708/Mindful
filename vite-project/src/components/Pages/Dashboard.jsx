@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { setUserData } from '../../features/inputSlice';
 import { Spinner } from '@chakra-ui/react'
 const Dashboard = () => {
-  const [temp, setTemp] = useState(false);
+  const [temp, setTemp] = useState(false); 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData);
@@ -25,7 +25,7 @@ const Dashboard = () => {
       navigate("/")
     }
     const fetchData = async () => {
-  
+      setTemp(false)
       try {
         setLoading(true);
         if (!navigator.onLine) {

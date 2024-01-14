@@ -4,7 +4,8 @@ const initialState = {
         userData : [],
         allUsers:[],
         searchResult:'',
-        selectedOption:'A-Z',
+        temp:null,
+        val:'',
 
   };
   const inputSlice = createSlice({
@@ -20,12 +21,16 @@ const initialState = {
       setSearch: (state, action) => {
         state.searchResult= action.payload;
       },
-      setSelectedOption: (state, action) => {
-        state.selectedOption= action.payload;
+      setTemp: (state, action) => {
+        state.temp= action.payload;
       },
+      setVal: (state, action) => {
+        state.val= action.payload;
+      },
+  
       
     },
   });
   
-  export const { setUserData , setAllUsers , setSearch , setSelectedOption} = inputSlice.actions;
+  export const { setUserData , setAllUsers , setSearch, setTemp , setVal} = inputSlice.actions;
   export default inputSlice.reducer;

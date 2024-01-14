@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   Thead,
@@ -13,13 +13,23 @@ import {
   Box,
   Stack,
 } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { useDispatch , useSelector } from 'react-redux'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { setVal } from '../features/inputSlice'
 
 const List = ({ handleEdit, handleDelete, handleView }) => {
   const allData = useSelector((state) => state.allUsers)
   const search = useSelector((state) => state.searchResult)
-  const option = useSelector((state) => state.selectedOption)
+  const temp = useSelector((state) => state.temp)
+  const dispatch = useDispatch()
+  const [option, setOption] = useState(localStorage.getItem('filters') || 'A-Z');
+
+
+
+  useEffect(()=>{
+    setOption(localStorage.getItem('filters') || 'A-Z');
+    dispatch(setVal(localStorage.getItem('filters') || 'A-Z'))
+  },[temp])
 
   const sortedData = allData
     .filter(
@@ -30,8 +40,6 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
         item.phone.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
-    
-
       if (option === 'A-Z' || option === 'Z-A') {
         return option === 'A-Z' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
       } else if (option === 'lastModified') {

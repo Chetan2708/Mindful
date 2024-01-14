@@ -97,18 +97,18 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-
       setLoad(false);
-    setName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setPhone('');
-    setGender('');
-    setHowHeard([]);
-    setCity('');
-    setState('');
-     
+ 
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setPhone('');
+      setGender('');
+      setHowHeard([]);
+      setCity('');
+      setState('');
+      
     } catch (error) {
       toast({
         title: "Error Occurred!",

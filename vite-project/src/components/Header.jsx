@@ -4,7 +4,8 @@ import { Button} from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AddIcon, ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearch, setSelectedOption } from '../features/inputSlice';
+import { setSearch, setTemp} from '../features/inputSlice';
+import { v4 as uuid } from "uuid";
 import ProfileModal from './misc/ProfileModal';
 import Swal from 'sweetalert2';
 import {
@@ -36,6 +37,7 @@ const Header = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("userInfo");
+        localStorage.removeItem("filters");
         Swal.fire({
           title: "Logged Out!",
           text: "You are logged out!",
@@ -51,7 +53,8 @@ const Header = () => {
   };
 
   const handleChange =(value)=>{
-    dispatch(setSelectedOption(value))
+   localStorage.setItem("filters" , value)
+   dispatch(setTemp(uuid()))
   }
   return (
 <>
@@ -110,13 +113,13 @@ const Header = () => {
         </Button>
       </Link>
     </header>
-    <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
+    <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth='1px'>Filter </DrawerHeader>
           <DrawerBody>
           
-            <RadioGroup onChange={handleChange}>
+            <RadioGroup onChange={handleChange} value={useSelector((state)=>state.val)}>
           <Stack direction={'column'} >
               <Radio value='A-Z'>A-Z</Radio>
               <Radio value='Z-A'>Z-A</Radio>
