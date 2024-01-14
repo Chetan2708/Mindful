@@ -28,7 +28,6 @@ const Edit = () => {
     email: '',
     phone: '',
     gender: '',
-    howHeard: [],
     city: '',
     state: '',
   });
@@ -37,6 +36,7 @@ const Edit = () => {
 
   useEffect(() => {
     // Fetch existing user data (excluding password) and populate updateData state
+    console.log(allData)
     const currentUser = allData.find((user) => user._id === id);
     if (currentUser) {
       const { password, ...userDataWithoutPassword } = currentUser;
@@ -127,7 +127,7 @@ const Edit = () => {
           placeholder="Enter Your Name (Alphabets only)"
           _placeholder={{ opacity: 0.5, color: 'black' }}
           value={updateData.name}
-          onChange={(e) => handleInputChange('name', e.target.value.replace(/[^A-Za-z]/g, ''))}
+          onChange={(e) => handleInputChange('name', e.target.value.replace(/[^A-Za-z\s]/g, ''))}
         />
       </FormControl>
 
@@ -153,33 +153,21 @@ const Edit = () => {
 
       <FormControl id="gender" isRequired>
         <FormLabel>Gender</FormLabel>
-        <Input
-          placeholder="Enter Your Gender"
-          _placeholder={{ opacity: 0.5, color: 'black' }}
-          value={updateData.gender}
-          onChange={(e) => handleInputChange('gender', e.target.value)}
-        />
-      </FormControl>
-
-      <FormControl id="howHeard" isRequired>
-        <FormLabel>How did you hear about this?</FormLabel>
-        <CheckboxGroup value={updateData.howHeard} onChange={(values) => handleInputChange('howHeard', values)}>
+        <RadioGroup onChange={(value) => setUpdateData((prevData) => ({ ...prevData, gender: value }))} value={updateData.gender}>
           <HStack spacing="24px">
-            <Checkbox value="linkedin">LinkedIn</Checkbox>
-            <Checkbox value="friends">Friends</Checkbox>
-            <Checkbox value="job-portal">Job Portal</Checkbox>
-            <Checkbox value="others">Others</Checkbox>
+            <Radio value="Male">Male</Radio>
+            <Radio value="Female">Female</Radio>
+            <Radio value="Other">Other</Radio>
           </HStack>
-        </CheckboxGroup>
+        </RadioGroup>
       </FormControl>
-
       <FormControl id="city" isRequired>
         <FormLabel> City</FormLabel>
 
-        <Select value={updateData.city} placeholder="Select City" onChange={(e) => handleInputChange('city', e.target.value)}>
-          <option value="mumbai">Mumbai </option>
-          <option value="pune">Pune</option>
-          <option value="ahmedabad">Ahmedabad</option>
+        <Select value={updateData.city} placeholder="Select City" onChange={(e) => handleInputChange('city', e.target.value)} >
+          <option value="mumbai" style={{color:"black"}}> Mumbai </option>
+          <option value="pune" style={{color:"black"}}>Pune</option>
+          <option value="ahmedabad" style={{color:"black"}}>Ahmedabad</option>
         </Select>
       </FormControl>
 

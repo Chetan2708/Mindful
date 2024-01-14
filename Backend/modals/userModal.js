@@ -17,25 +17,21 @@ const userModel = mongoose.Schema(
     },
     gender: {
       type: String,
-
-      required: true,
+      default:"",
     },
     howHeard: {
       type: Array,
-
-      required: true,
+      default:"",
     },
     city: {
       type: String,
-
-      required: true,
+      default:"",
     },
     state: {
       type: String,
-
-      required: true,
+      default:"",
     },
-    password: { type: String, required: true },
+    password: { type: String, default:"admin",},
 
     pic: {
       type: String,

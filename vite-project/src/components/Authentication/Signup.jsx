@@ -30,7 +30,18 @@ const Signup = () => {
 
   const submitHandler = async () => {
     setLoad(true);
-  
+    if (!name || !email || !password || !confirmPassword || !phone || !gender || howHeard.length === 0 || !city || !state) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all the required fields.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoad(false);
+      return;
+    }
     try {
       // Check if the browser is online
       if (!navigator.onLine) {
@@ -88,7 +99,7 @@ const Signup = () => {
       });
 
       setLoad(false);
-        setName('');
+    setName('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -194,7 +205,7 @@ const Signup = () => {
     <FormControl id="state" isRequired>
       <FormLabel> State</FormLabel>
       <Input
-        placeholder="Enter Your State (Auto-suggested)"
+        placeholder="Enter Your State"
         _placeholder={{ opacity: 0.5, color: 'black' }}
         onChange={(e) => setState(e.target.value)}
       ></Input>

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header';
 import List from '../List';
-import { Box, useToast } from '@chakra-ui/react';
+import { Box, Center, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllUsers } from '../../features/inputSlice';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { setUserData } from '../../features/inputSlice';
-
+import { Spinner } from '@chakra-ui/react'
 const Dashboard = () => {
   const [temp, setTemp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData);
   const toast = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const userInfo = JSON.parse(localStorage.getItem("userInfo"))
     dispatch(setUserData(userInfo));
     if (!userInfo){
@@ -25,9 +27,9 @@ const Dashboard = () => {
     const fetchData = async () => {
   
       try {
-        // Check if the browser is online
+        setLoading(true);
         if (!navigator.onLine) {
-          // Display a message or trigger a Snackbar for no internet connection
+        
           toast({
             title: 'No Internet Connection',
             description: 'Please check your Wi-Fi or Mobile Data',
@@ -47,12 +49,14 @@ const Dashboard = () => {
         const response = await axios.get(`/api/user?search`, config);
 
         dispatch(setAllUsers(response.data));
+        setLoading(false)
       } catch (error) {
           console.log(error)
+          
       }
     };
 
-    fetchData(); // Call the async function
+    fetchData();
 
   }, [temp, dispatch, user.token , navigate]);
 
@@ -65,7 +69,7 @@ const Dashboard = () => {
   };
 
   const handleDelete = async (id) => {
-    // Display confirmation dialog using SweetAlert
+    // Display confirmation dialog 
     const confirmResult = await Swal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -137,7 +141,19 @@ const Dashboard = () => {
   return (
     <Box>
       <Header />
-      <List handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete} />
+      {loading ? ( 
+       <Center height="100vh">
+       <Spinner
+         thickness="6px"
+         speed="0.65s"
+         emptyColor="gray.200"
+         color="blue.500"
+         size="xl"
+       />
+     </Center>
+      ) : (
+        <List handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete} />
+      )}
     </Box>
   );
 };

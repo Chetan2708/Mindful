@@ -2,10 +2,9 @@ const asyncHandler = require("express-async-handler"); //It HANDLES all the erro
 const User = require("../modals/userModal");
 const jwttoken = require("../config/jwt");
 
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic, phone, gender, howHeard, city, state } =
-    req.body;
-  if (!name || !email || !password) {
+const  registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password, pic, phone, gender, howHeard, city, state } = req.body;
+  if (!name || !email ) {
     res.status(400);
     throw new Error("Please enter the required inputs !");
   }
@@ -121,7 +120,6 @@ const editUser = asyncHandler(async (req, res) => {
     existingUser.email = updatedUserData.email || existingUser.email;
     existingUser.phone = updatedUserData.phone || existingUser.phone;
     existingUser.gender = updatedUserData.gender || existingUser.gender;
-    existingUser.howHeard = updatedUserData.howHeard || existingUser.howHeard;
     existingUser.city = updatedUserData.city || existingUser.city;
     existingUser.state = updatedUserData.state || existingUser.state;
 
@@ -135,5 +133,6 @@ const editUser = asyncHandler(async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 })
+
 module.exports = { registerUser, authUser, allData , deleteUser ,editUser};
 

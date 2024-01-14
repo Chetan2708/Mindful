@@ -10,6 +10,8 @@ import {
   TableCaption,
   TableContainer,
   Button,
+  Box,
+  Stack,
 } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
@@ -17,12 +19,42 @@ import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 const List = ({ handleEdit, handleDelete, handleView }) => {
   const allData = useSelector((state) => state.allUsers)
   const search = useSelector((state) => state.searchResult)
+  const option = useSelector((state) => state.selectedOption)
+
+  const sortedData = allData
+    .filter(
+      (item) =>
+        search.toLowerCase() === '' ||
+        item.name.toLowerCase().includes(search.toLowerCase()) ||
+        item.email.toLowerCase().includes(search.toLowerCase()) ||
+        item.phone.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+    
+
+      if (option === 'A-Z' || option === 'Z-A') {
+        return option === 'A-Z' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      } else if (option === 'lastModified') {
+        const dateA = new Date(a.updatedAt).getTime();
+        const dateB = new Date(b.updatedAt).getTime();
+        return dateB - dateA;
+      } else if (option === 'lastInserted') {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+      }
+  
+      return 0;
+
+    });
+      {console.log(sortedData)}
   return (
-    <div>
+    <Box margin={'10px'}>
+      <Stack spacing={4}>
       <TableContainer style={{ color: 'white' }}>
         <Table size='m'>
-          <Thead>
-            <Tr>
+          <Thead >
+            <Tr >
               <Th width='5%'>Id</Th>
               <Th width='10%'>Name</Th>
               <Th width='10%'>Email</Th>
@@ -33,20 +65,16 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {allData.length > 0 ? (
-              allData
-                .filter((item) =>
-                  search.toLowerCase() === "" ||
-                  item.name.toLowerCase().includes(search.toLowerCase()) ||
-                  item.email.toLowerCase().includes(search.toLowerCase()) ||
-                  item.phone.toLowerCase().includes(search.toLowerCase())
-                ).map((emp, i) => (
+            { 
+            sortedData.length > 0 ? (
+              sortedData
+                .map((emp, i) => (
                   <Tr
                     key={emp.id}
-                    bg={i % 2 === 0 ? 'black' : 'grey.200 '} // Alternating background colors
+                    bg={i % 2 === 0 ? 'gray.700' : 'gray.800 '} 
                   >
-                    <Td>{i + 1}</Td>
-                    <Td>{emp.name}</Td>
+                    <Td fontSize={'20px'}>{i + 1}</Td>
+                    <Td fontSize={'20px'}>{emp.name}</Td>
                     <Td>{emp.email}</Td>
                     
                     <Td>{emp.phone}</Td>
@@ -86,7 +114,8 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
           </Tbody>
         </Table>
       </TableContainer>
-    </div>
+      </Stack>
+    </Box>
   );
 }
 

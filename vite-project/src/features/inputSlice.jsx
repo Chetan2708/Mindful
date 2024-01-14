@@ -4,6 +4,7 @@ const initialState = {
         userData : [],
         allUsers:[],
         searchResult:'',
+        selectedOption:'A-Z',
 
   };
   const inputSlice = createSlice({
@@ -19,9 +20,12 @@ const initialState = {
       setSearch: (state, action) => {
         state.searchResult= action.payload;
       },
+      setSelectedOption: (state, action) => {
+        state.selectedOption= action.payload;
+      },
       
     },
   });
   
-  export const { setUserData , setAllUsers , setSearch} = inputSlice.actions;
+  export const { setUserData , setAllUsers , setSearch , setSelectedOption} = inputSlice.actions;
   export default inputSlice.reducer;
