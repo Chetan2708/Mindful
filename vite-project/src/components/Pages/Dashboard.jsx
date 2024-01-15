@@ -103,7 +103,7 @@ const Dashboard = () => {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            // You might need to include additional headers such as authorization headers
+           
           },
         });
 
@@ -111,7 +111,7 @@ const Dashboard = () => {
           console.log('User deleted successfully');
           setTemp(true);
 
-          // Display success message using SweetAlert
+          
           Swal.fire({
             title: 'Deleted!',
             text: 'Your user has been deleted.',
