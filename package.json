@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon Backend/server.js",
+    "server": "nodemon Backend/server.js",
     "build": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix vite-project && npm run build --prefix vite-project"
   },
   "author": "",
