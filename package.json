@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "cd /opt/render/project/src/Backend/server.js",
+    "start": "node server.js",
     "server": "nodemon Backend/server.js",
     "build": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build"
   },
