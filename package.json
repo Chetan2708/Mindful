@@ -2,18 +2,27 @@
   "name": "mindful",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node Backend/server.js",
     "server": "nodemon Backend/server.js",
-    "render-postbuild": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build",
-    "install": "npm --prefix Backend install Backend && npm --prefix vite-project install vite-project",
-    "dev:Backend": "npm install --prefix Backend start",
-    "dev:vite-project": "npm install --prefix vite-project start",
-    "sequelize": "npm run --prefix Backend sequelize",
-    "sequelize-cli": "npm run --prefix Backend sequelize-cli",
-    "start": "npm start --prefix Backend",
-    "build": "npm run build --prefix Backend"
+    "build": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
+    "nodemon": "^3.0.2",
+    "redux-persist": "^6.0.0",
+    "redux-toolkit-persist": "^2.0.0",
+    "start": "^5.1.0"
+  }
 }
