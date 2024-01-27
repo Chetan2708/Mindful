@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node Backend/server.js",
     "server": "nodemon Backend/server.js",
-    "build": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/ && npm run build"
+    "build": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project && cd /opt/render/project/src/server && npm run build"
   },
   "author": "",
   "license": "ISC",
