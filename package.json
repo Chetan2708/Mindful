@@ -4,9 +4,16 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "cd /opt/render/project/src/Backend && node server.js",
+  
     "server": "nodemon Backend/server.js",
-    "build": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build"
+    "render-postbuild": "npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build",
+    "install": "npm --prefix Backend install Backend && npm --prefix vite-project install vite-project",
+    "dev:Backend": "npm install --prefix Backend start",
+    "dev:vite-project": "npm install --prefix vite-project start",
+    "sequelize": "npm run --prefix Backend sequelize",
+    "sequelize-cli": "npm run --prefix Backend sequelize-cli",
+    "start": "npm start --prefix Backend",
+    "build": "npm run build --prefix Backend"
   },
   "author": "",
   "license": "ISC",
