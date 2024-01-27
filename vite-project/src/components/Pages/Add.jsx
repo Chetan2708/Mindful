@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from '../../App';
+// import { baseUrl } from '../../App';
 const Add = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,7 +50,7 @@ const Add = () => {
       };
   
       let { data } = await axios.post(
-        `${baseUrl}/api/user/addUser`,
+        `/api/user/addUser`,
         {
           name,
           email,

@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from '../../App';
+// import { baseUrl } from '../../App';
 
 
 const Login = () => {
@@ -28,7 +28,6 @@ useEffect(() => {
       navigate("/dashboard")
     }
 }, [])
-
 
   const handleClick = async () => {
     setLoading(true);
@@ -67,7 +66,7 @@ useEffect(() => {
       };
 
       let { data } = await axios.post(
-        `${baseUrl}/api/user/login`,
+        `/api/user/login`,
         { email, password },
         config
       );

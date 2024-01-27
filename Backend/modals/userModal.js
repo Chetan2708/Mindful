@@ -41,6 +41,7 @@ const userModel = mongoose.Schema(
   },
   {
     timestamps: true,
+    
   }
 );
 

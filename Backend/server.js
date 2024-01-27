@@ -9,6 +9,7 @@ const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoutes")
 
 const cors = require('cors')
+const path = require('path')
 
 dotenv.config();
 connectDB();
@@ -33,14 +34,32 @@ app.use(function(req, res, next) {
 
 app.use("/api/user" , userRoutes)
 
-app.get("/", async function (req, res) {
-    // if (!req.session.isLoggedIn) {
-        res.send("Seriously")
-        // res.redirect("/login");
-        //   return;
-        // }
-    }
-    )
+
+// --------------------Deployment
+const __dirname1 = path.resolve(__dirname, '..')
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname1, "/vite-project/dist")))
+    
+    app.get('*' ,(req,res)=>{
+        console.log(__dirname1)
+        res.sendFile(path.resolve(__dirname1, "vite-project" ,"dist" ,"index.html"))
+    })
+}
+else{
+    app.get("/", async function (req, res) {
+        // if (!req.session.isLoggedIn) {
+            res.send("Seriously")
+            // res.redirect("/login");
+            //   return;
+            // }
+        }
+        )
+
+}
+// --------------------Deployment
+
+
     app.get("/login", async function (req, res) {
         res.send("Logged in ")
   }
