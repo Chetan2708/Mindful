@@ -5,7 +5,7 @@ import Dashboard from './components/Pages/Dashboard';
 import Add from './components/Pages/Add';
 import Edit from './components/Edit';
 import View from './components/Pages/View';
-// export const baseUrl = 'https://mindful-fullstack-backend.onrender.com';
+
 const App = () => {
   return (
     <Router>
