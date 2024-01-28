@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../Header';
+import Header from '../Header/Header';
 
 import { Box, Center, useToast } from '@chakra-ui/react';
 import axios from 'axios';

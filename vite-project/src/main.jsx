@@ -12,13 +12,11 @@ const customTheme = extendTheme({
     global: {
       body: {
         bg: 'black',
-        // color: 'white',
       },
     },
   },
 });
 ReactDOM.render(
-
   <ChakraProvider theme={customTheme}>
     <Provider store={store}>
       <App />

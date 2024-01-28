@@ -11,7 +11,7 @@ const  registerUser = asyncHandler(async (req, res) => {
  
   const Existing = await User.findOne({ email });
   if (Existing) {
-    res.status(400);
+    res.status(409);
     throw new Error("User already exists!");
   }
   const newUser = await User.create({
@@ -103,6 +103,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 const editUser = asyncHandler(async (req, res) => {
   const userId = req.params.id; 
   const updatedUserData = req.body; 

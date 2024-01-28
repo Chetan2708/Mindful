@@ -1,0 +1,19 @@
+.Add-user-btn{
+        color:rgb(202, 193, 255);
+        &:hover{
+            background-color:#a2fe759b;
+            color: rgb(30, 29, 29);
+        }
+
+    @media screen and (max-width: 900px) {
+        /* Adjust styles for screens with a maximum width of 768px */
+        font-size: 12px !important; 
+        padding: 8px !important;
+      }
+    
+      @media screen and (max-width: 768px) {
+          .btn-txt{
+              display: none;
+          }
+      }
+}

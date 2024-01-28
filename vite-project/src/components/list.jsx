@@ -22,8 +22,6 @@ const List = ({ handleEdit, handleDelete, handleView }) => {
   const dispatch = useDispatch()
   const [option, setOption] = useState(localStorage.getItem('filters') || 'A-Z');
 
-
-
   useEffect(()=>{
     setOption(localStorage.getItem('filters') || 'A-Z');
     dispatch(setVal(localStorage.getItem('filters') || 'A-Z'))

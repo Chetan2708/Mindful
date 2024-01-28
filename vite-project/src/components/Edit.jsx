@@ -13,6 +13,7 @@ import {
   Select,
   Button,
   useToast,
+  Text,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -120,6 +121,7 @@ const Edit = () => {
 
   return (
     <VStack spacing="5px" style={{color:'white'}}>
+      <Text fontSize="2xl" fontFamily="Work sans">Edit User </Text>
       <FormControl id="name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
