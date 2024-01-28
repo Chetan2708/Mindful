@@ -20,7 +20,6 @@ const View = () => {
 
   useEffect(() => {
     // Fetch existing user data (excluding password) and populate updateData state
-    
     const currentUser = allData.find((user) => user._id === id);
     if (currentUser) {
       const { password, ...userDataWithoutPassword } = currentUser;

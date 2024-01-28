@@ -54,7 +54,6 @@ const Add = () => {
         {
           name,
           email,
-          
           phone,
         },
         config
