@@ -7,7 +7,6 @@
     "start": "node Backend/server.js",
     "server": "nodemon Backend/server.js",
     "build": "npm install && npm install --prefix vite-project --production=false && cd /opt/render/project/src/vite-project  && npm run build"
-    
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +21,7 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2",
+    "react-responsive": "^9.0.2",
     "redux-persist": "^6.0.0",
     "redux-toolkit-persist": "^2.0.0",
     "start": "^5.1.0"

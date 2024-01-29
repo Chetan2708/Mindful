@@ -164,7 +164,6 @@ const Edit = () => {
       </FormControl>
       <FormControl id="city" isRequired>
         <FormLabel> City</FormLabel>
-
         <Select value={updateData.city} placeholder="Select City" onChange={(e) => handleInputChange('city', e.target.value)} >
           <option value="mumbai" style={{color:"black"}}> Mumbai </option>
           <option value="pune" style={{color:"black"}}>Pune</option>

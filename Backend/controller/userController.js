@@ -56,7 +56,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     res.status(201).json({
-      id: user.id,
+      id: user.id,   //Auomatically converted mongodb ._id to a string when the user is confirmed 
       name: user.name,
       password: user.password,
       email: user.email,

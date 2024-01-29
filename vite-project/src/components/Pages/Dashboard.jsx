@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { setUserData } from '../../features/inputSlice';
 import { Spinner } from '@chakra-ui/react'
-import List from '../list';
+import List from '../Users Lists/list';
 // import { baseUrl } from '../../App';
 const Dashboard = () => {
   const [temp, setTemp] = useState(false); 
