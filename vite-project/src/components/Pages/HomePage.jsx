@@ -20,7 +20,7 @@ const HomePage = () => {
         background="white"
       >
         <Text fontSize="3xl" fontFamily="Work sans" color="black">
-          Mindful Gurukul
+          User Connect
         </Text>
       </Box>
       <Box
